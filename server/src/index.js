@@ -2,6 +2,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 
+import connectDB from "./lib/db.js";
+
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
 import songRoutes from "./routes/song.route.js";
@@ -28,6 +30,8 @@ app.get("/", (req, res) => {
   res.send("Hello from the backend of the spotify app");
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
 });
