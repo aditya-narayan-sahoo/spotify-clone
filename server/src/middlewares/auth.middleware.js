@@ -23,7 +23,7 @@ export const protectRoute = async (req, res, next) => {
  * A middleware that checks if the user is an admin before allowing them to access
  * a route. If the user is not an admin, it returns a 403 status code with a
  * message "Forbidden - user is not an admin". If there is an error, it logs the
- * error and returns a 500 status code with a message "Internal server error".
+ * error and calls the next middleware.
  *
  * @param {object} req - The Express request object
  * @param {object} res - The Express response object
@@ -43,6 +43,6 @@ export const requireAdmin = async (req, res, next) => {
     next();
   } catch (error) {
     console.log(`Error in requireAdmin: ${error.message}`);
-    res.status(500).json({ message: "Internal server error", error });
+    next(error);
   }
 };

@@ -1,13 +1,12 @@
 import User from "../models/user.model.js";
 /**
- * Handles the auth callback from Clerk. If the user doesn't exist, it creates the user
- * with the provided information from Clerk.
- *
+ * Handles the callback from Clerk's OAuth flow. If the user doesn't already
+ * exist in the database, it creates a new user with the provided information.
  * @param {import("express").Request} req - The Express request object
  * @param {import("express").Response} res - The Express response object
- * @returns {Promise<void>} Resolves when the user is created successfully
+ * @param {import("express").NextFunction} next - The next middleware to call
  */
-export const authCallback = async (req, res) => {
+export const authCallback = async (req, res, next) => {
   try {
     const { id, firstName, lastName, imageUrl } = req.body;
     const existingUser = await User.findOne({ clerkId: id });
@@ -23,6 +22,6 @@ export const authCallback = async (req, res) => {
     res.status(200).json({ message: "User created successfully" });
   } catch (error) {
     console.log(`Error in auth callback: ${error.message}`);
-    res.status(500).json({ message: "Internal server error", error });
+    next(error);
   }
 };
