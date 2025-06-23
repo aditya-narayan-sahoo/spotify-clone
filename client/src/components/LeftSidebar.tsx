@@ -4,7 +4,7 @@ import { HomeIcon, Library, MessageCircle } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { SignedIn } from "@clerk/clerk-react";
-import { useMusicStore } from "@/store/useMusic";
+import { useMusicStore } from "@/store/useMusicStore";
 import { buttonVariants } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import PlaylistSkeleton from "@/skeletons/PlaylistSkeleton";
@@ -62,7 +62,7 @@ const LeftSidebar = () => {
             ) : (
               albums.map((album) => (
                 <Link
-                  to={`/playlist/${album._id}`}
+                  to={`/albums/${album._id}`}
                   key={album._id}
                   className="p-2 hover:bg-zinc-800 rounded-md flex items-center gap-3 group cursor-pointer"
                 >
