@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { create } from "zustand";
 import { axiosInstance } from "@/lib/axios";
 

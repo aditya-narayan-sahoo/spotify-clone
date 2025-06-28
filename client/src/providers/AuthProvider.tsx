@@ -2,6 +2,7 @@ import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "@/lib/axios";
 import { useAuth } from "@clerk/clerk-react";
+import { useAuthStore } from "@/store/useAuthStore";
 
 const updateApiToken = (token: string | null) =>
   token
@@ -13,11 +14,15 @@ const updateApiToken = (token: string | null) =>
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { getToken } = useAuth();
   const [loading, setLoading] = useState(true);
+  const { checkAdminStatus } = useAuthStore();
   useEffect(() => {
     const initAuth = async () => {
       try {
         const token = await getToken();
         updateApiToken(token);
+        if (token) {
+          await checkAdminStatus();
+        }
       } catch (error) {
         updateApiToken(null);
         console.log(`Error fetching token: ${error}`);
@@ -26,7 +31,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     };
     initAuth();
-  }, [getToken]);
+  }, [getToken, checkAdminStatus]);
   if (loading) {
     return (
       <div className="h-screen w-full flex items-center justify-center">
