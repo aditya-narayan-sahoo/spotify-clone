@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import LeftSidebar from "@/components/LeftSidebar";
 import AudioPlayer from "@/components/AudioPlayer";
 import FriendsActivity from "@/components/FriendsActivity";
+import { PlaybackControls } from "@/components/ui/PlayBackControls";
 
 const MainLayout = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -61,6 +62,7 @@ const MainLayout = () => {
           </>
         )}
       </ResizablePanelGroup>
+      <PlaybackControls />
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import PlayButton from "@/components/PlayButton";
 import { useMusicStore } from "@/store/useMusicStore";
 import FeaturedGridSkeleton from "@/skeletons/FeaturedGridSkeleton";
 
@@ -25,7 +26,7 @@ const FeaturedSection = () => {
             <p className="font-medium truncate">{song.title}</p>
             <p className="text-sm text-zinc-400 truncate">{song.artist}</p>
           </div>
-          {/* Todo : Add play button */}
+          <PlayButton song={song} />
         </div>
       ))}
     </div>
