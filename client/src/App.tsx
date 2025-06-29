@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Chat from "./pages/Chat";
 import Admin from "./pages/Admin";
 import Album from "./pages/Album";
+import NotFound from "./pages/NotFound";
 import AuthCallback from "./pages/AuthCallback";
 
 import MainLayout from "./layout/MainLayout";
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/chat" element={<Chat />} />
           <Route path="/albums/:albumId" element={<Album />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster />
     </>
