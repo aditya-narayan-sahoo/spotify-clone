@@ -64,8 +64,8 @@ export const useMusicStore = create<MusicStore>((set) => ({
       set((state) => ({
         albums: state.albums.filter((album) => album._id !== id),
         songs: state.songs.map((song) =>
-          state.albums.find((album) => album._id === id)?.title
-            ? { ...song, albumId: null }
+          song.albumId === state.albums.find((a) => a._id === id)?.title
+            ? { ...song, album: null }
             : song
         ),
       }));
