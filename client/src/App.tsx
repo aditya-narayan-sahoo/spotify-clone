@@ -29,8 +29,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/albums/:albumId" element={<Album />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
-        <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster />
     </>
