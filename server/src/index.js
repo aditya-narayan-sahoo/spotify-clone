@@ -2,10 +2,12 @@ import cors from "cors";
 import path from "path";
 import dotenv from "dotenv";
 import express from "express";
+import { createServer } from "http";
 import fileUpload from "express-fileupload";
 import { clerkMiddleware } from "@clerk/express";
 
 import connectDB from "./lib/db.js";
+import initializeSocket from "./lib/socket.js";
 
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
@@ -18,6 +20,9 @@ dotenv.config();
 const __dirname = path.resolve();
 const app = express();
 const PORT = process.env.PORT || 5432;
+
+const httpServer = createServer(app);
+initializeSocket(httpServer);
 
 app.use(
   cors({
@@ -60,7 +65,7 @@ app.get("/", (req, res) => {
 });
 
 connectDB().then(() => {
-  app.listen(PORT, () => {
+  httpServer.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
   });
 });
